@@ -6,7 +6,44 @@ const Result = () => {
   const [datas, setDatas] = useState("");
   const [select, setSelect] = useState("");
   const [transit, setTransit] = useState("");
+  const [priority, setPriority] = useState("");
+  const [norec, setNorec] = useState("");
   const location = useLocation();
+
+  const ListNumber = (value) => {
+    const colorValues = {
+      RED: 50,
+      YELLOW: 25,
+    };
+
+    const rumpunTotals = value.reduce((totals, item) => {
+      const nilaiWarna = colorValues[item.color] || 0;
+      totals[item.rumpun] = (totals[item.rumpun] || 0) + nilaiWarna;
+      return totals;
+    }, {});
+
+    const sortedRumpun = Object.keys(rumpunTotals).sort(
+      (a, b) => rumpunTotals[b] - rumpunTotals[a]
+    );
+    setPriority(sortedRumpun);
+  };
+
+  const NoRecomend = (value) => {
+    const colorValues = {
+      BLACK: 50,
+    };
+
+    const rumpunTotals = value.reduce((totals, item) => {
+      const nilaiWarna = colorValues[item.color] || 0;
+      totals[item.rumpun] = (totals[item.rumpun] || 0) + nilaiWarna;
+      return totals;
+    }, {});
+
+    const sortedRumpun = Object.keys(rumpunTotals).sort(
+      (a, b) => rumpunTotals[b] - rumpunTotals[a]
+    );
+    setNorec(sortedRumpun);
+  };
 
   const ManageFunction = (data) => {
     setTransit(data);
@@ -20,7 +57,8 @@ const Result = () => {
             id: count,
             rumpun: data[j].rumpun,
             branding: location.state[i].nilai,
-            color: `bg-${location.state[i].color}`,
+            color: location.state[i].color.split("-")[0].toUpperCase(),
+            colorbg: `bg-${location.state[i].color}`,
             strong: location.state[i].strong,
           };
           res.push(x);
@@ -28,6 +66,8 @@ const Result = () => {
       }
     }
     setDatas(res.sort((a, b) => a.rumpun.localeCompare(b.rumpun)));
+    ListNumber(res);
+    NoRecomend(res);
   };
 
   useEffect(() => {
@@ -45,6 +85,24 @@ const Result = () => {
       </h1>
       {datas ? (
         <div>
+          <div>
+            <h1 className="font-semibold mt-5 mb-1">
+              Rumpun yang di sarankan:
+            </h1>
+            <h1>1. {priority[0]}</h1>
+            <h1>2. {priority[1]}</h1>
+            <h1>3. {priority[2]}</h1>
+            <h1>4. {priority[3]}</h1>
+          </div>
+          <div>
+            <h1 className="font-semibold mt-5 mb-1">
+              Rumpun yang tidak di sarankan:
+            </h1>
+            <h1>1. {norec[0]}</h1>
+            <h1>2. {norec[1]}</h1>
+            <h1>3. {norec[2]}</h1>
+            <h1>4. {norec[3]}</h1>
+          </div>
           <div className="flex justify-center py-4">
             <div>
               <h1>Silahkan Input Tujuan Rumpun Siswa</h1>
@@ -55,6 +113,7 @@ const Result = () => {
               />
             </div>
           </div>
+
           <div>
             <h1 className="text-center font-semibold border-b-2 border-amber-700 my-3">
               Kebutuhan
@@ -91,7 +150,7 @@ const Result = () => {
             })
             .map((value) => (
               <div
-                className={`my-2 flex justify-between ${value.color} text-white p-2 rounded-lg`}
+                className={`my-2 flex justify-between ${value.colorbg} text-white p-2 rounded-lg`}
                 key={value.id}
               >
                 <div>{value.rumpun}</div>
