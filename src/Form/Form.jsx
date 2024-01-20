@@ -3,7 +3,9 @@ import { List } from "../DataStatic/ListName";
 import { useNavigate } from "react-router-dom";
 
 const Form = () => {
-  const [selectName, setSelectName] = useState(List);
+  const [selectName, setSelectName] = useState(
+    List.sort((a, b) => a.group - b.group)
+  );
   const [Name, setName] = useState([]);
   const navigate = useNavigate();
 
