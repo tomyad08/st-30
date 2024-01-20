@@ -45,7 +45,7 @@ const Form = () => {
               <div className="flex justify-around">
                 <button
                   className="bg-red-600 w-8 h-8 rounded-lg mx-5"
-                  onClick={() => handleClick(value.nilai, "red-500", "Strong")}
+                  onClick={() => handleClick(value.nilai, "red-600", "Strong")}
                 ></button>
                 <button
                   className="bg-yellow-500 w-8 h-8 rounded-lg mx-5"
