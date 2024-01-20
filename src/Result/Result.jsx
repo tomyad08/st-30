@@ -93,6 +93,8 @@ const Result = () => {
             <h1>2. {priority[1]}</h1>
             <h1>3. {priority[2]}</h1>
             <h1>4. {priority[3]}</h1>
+            <h1>5. {priority[4]}</h1>
+            <h1>6. {priority[5]}</h1>
           </div>
           <div>
             <h1 className="font-semibold mt-5 mb-1">
@@ -100,8 +102,6 @@ const Result = () => {
             </h1>
             <h1>1. {norec[0]}</h1>
             <h1>2. {norec[1]}</h1>
-            <h1>3. {norec[2]}</h1>
-            <h1>4. {norec[3]}</h1>
           </div>
           <div className="flex justify-center py-4">
             <div>
