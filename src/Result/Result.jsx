@@ -7,18 +7,20 @@ const Result = () => {
   const [select, setSelect] = useState("");
   const [transit, setTransit] = useState("");
   const [priority, setPriority] = useState("");
-  const [norec, setNorec] = useState("");
   const location = useLocation();
 
   const ListNumber = (value) => {
     const colorValues = {
-      RED: 50,
-      YELLOW: 25,
+      RED: 5,
+      YELLOW: 3,
+      WHITE: 1,
+      SLATE: 0.3,
+      BLACK: 0.2,
     };
 
     const rumpunTotals = value.reduce((totals, item) => {
       const nilaiWarna = colorValues[item.color] || 0;
-      totals[item.rumpun] = (totals[item.rumpun] || 0) + nilaiWarna;
+      totals[item.rumpun] = (totals[item.rumpun] || 1) * nilaiWarna;
       return totals;
     }, {});
 
@@ -26,23 +28,6 @@ const Result = () => {
       (a, b) => rumpunTotals[b] - rumpunTotals[a]
     );
     setPriority(sortedRumpun);
-  };
-
-  const NoRecomend = (value) => {
-    const colorValues = {
-      BLACK: 50,
-    };
-
-    const rumpunTotals = value.reduce((totals, item) => {
-      const nilaiWarna = colorValues[item.color] || 0;
-      totals[item.rumpun] = (totals[item.rumpun] || 0) + nilaiWarna;
-      return totals;
-    }, {});
-
-    const sortedRumpun = Object.keys(rumpunTotals).sort(
-      (a, b) => rumpunTotals[b] - rumpunTotals[a]
-    );
-    setNorec(sortedRumpun);
   };
 
   const ManageFunction = (data) => {
@@ -67,7 +52,6 @@ const Result = () => {
     }
     setDatas(res.sort((a, b) => a.rumpun.localeCompare(b.rumpun)));
     ListNumber(res);
-    NoRecomend(res);
   };
 
   useEffect(() => {
@@ -100,8 +84,8 @@ const Result = () => {
             <h1 className="font-semibold mt-5 mb-1">
               Rumpun yang tidak di sarankan:
             </h1>
-            <h1>1. {norec[0]}</h1>
-            <h1>2. {norec[1]}</h1>
+            <h1>1. {priority[priority.length - 1]}</h1>
+            <h1>2. {priority[priority.length - 2]}</h1>
           </div>
           <div className="flex justify-center py-4">
             <div>
@@ -150,7 +134,7 @@ const Result = () => {
             })
             .map((value) => (
               <div
-                className={`my-2 flex justify-between ${value.colorbg} text-white p-2 rounded-lg`}
+                className={`my-2 flex justify-between ${value.colorbg} text-yellow-600 font-semibold p-2 rounded-lg`}
                 key={value.id}
               >
                 <div>{value.rumpun}</div>

@@ -44,17 +44,27 @@ const Form = () => {
               </div>
               <div className="flex justify-around">
                 <button
-                  className="bg-red-600 w-8 h-8 rounded-lg mx-5"
+                  className="bg-red-600 w-8 h-8 rounded-lg mx-1"
                   onClick={() => handleClick(value.nilai, "red-600", "Strong")}
                 ></button>
                 <button
-                  className="bg-yellow-500 w-8 h-8 rounded-lg mx-5"
+                  className="bg-yellow-500 w-8 h-8 rounded-lg mx-1"
                   onClick={() =>
                     handleClick(value.nilai, "yellow-500", "Middle-Strong")
                   }
                 ></button>
                 <button
-                  className="bg-black w-8 h-8 rounded-lg mx-5"
+                  className="bg-white w-8 h-8 rounded-lg mx-1"
+                  onClick={() => handleClick(value.nilai, "white", "Neutral")}
+                ></button>
+                <button
+                  className="bg-slate-300 w-8 h-8 rounded-lg mx-1"
+                  onClick={() =>
+                    handleClick(value.nilai, "slate-300", "Middle-Weak")
+                  }
+                ></button>
+                <button
+                  className="bg-black w-8 h-8 rounded-lg mx-1"
                   onClick={() => handleClick(value.nilai, "black", "Weak")}
                 ></button>
               </div>
